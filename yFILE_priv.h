@@ -36,8 +36,8 @@
 
 #define     P_VERMAJOR  "2.--, clean, improve, and expand"
 #define     P_VERMINOR  "2.0-, break away from yVIKEYS"
-#define     P_VERNUM    "2.0b"
-#define     P_VERTXT    "most version logic cleaned, improved, and unit tested"
+#define     P_VERNUM    "2.0c"
+#define     P_VERTXT    "most name logic cleaned, improved, and unit tested"
 
 #define     P_PRIORITY  "direct, simple, brief, vigorous, and lucid (h.w. fowler)"
 #define     P_PRINCIPAL "[grow a set] and build your wings on the way down (r. bradbury)"
@@ -50,6 +50,8 @@
 #include    <stdio.h>             /* clibc  standard input/output             */
 #include    <stdlib.h>            /* clibc  standard general purpose          */
 #include    <string.h>            /* clibc  standard string handling          */
+#include    <dirent.h>            /* clibc  directory reading and decoding    */
+#include    <sys/stat.h>          /* clibc  standard file handling            */
 /*---(custom core)-----------------------*/
 #include    <yURG.h>              /* heatherly urgent processing              */
 #include    <yLOG.h>              /* heatherly program logging                */
@@ -57,18 +59,44 @@
 /*---(custom vikeys)---------------------*/
 #include    <yKEYS.h>             /* heatherly vi-keys key handling           */
 #include    <yMODE.h>             /* heatherly vi-keys mode tracking          */
+#include    <yCMD.h>              /* heatherly vi-keys command processing     */
+#include    <ySRC.h>              /* heatherly vikeys source editing          */
+#include    <yMAP.h>              /* heatherly vi-keys location management    */
 /*---(custom other)----------------------*/
 #include    <yPARSE.h>            /* heatherly file reading and writing       */
+#include    <yREGEX.h>            /* heatherly regular expressions            */
 /*---(done)------------------------------*/
 
+
+typedef     struct dirent     tDIRENT;
+typedef     struct stat       tSTAT;
+#define     YFILE_BLANK      "untitled"
 
 
 typedef    struct    cMY    tMY;
 struct cMY {
+   /*---(source)----------*/
+   char        s_prog      [LEN_LABEL];     /* program name                   */
+   char        s_fullname  [LEN_DESC];      /* program name with path         */
+   char        s_vernum    [LEN_LABEL];     /* program version number         */
+   char        s_vertxt    [LEN_DESC];      /* program version text           */
+   char        s_namesake  [LEN_DESC];      /* program greek name             */
+   char        s_ext       [LEN_LABEL];     /* file extention                 */
+   char        s_filetype  [LEN_DESC];      /* description of file extension  */
+   /*---(functions)------------*/
+   char      (*e_handlers) (void);
+   char      (*e_prepper)  (char a_pass);
+   char      (*e_finisher) (char a_pass);
    /*---(file)-----------------*/
    char        f_control;                   /* file version control flag      */
    char        f_vernum    [LEN_LABEL];     /* file version number            */
    char        f_vertxt    [LEN_HUND];      /* file version text              */
+   char        f_loc       [LEN_RECD ];     /* specific file location         */
+   char        f_name      [LEN_RECD ];     /* full file name                 */
+   char        f_title     [LEN_RECD ];     /* specific file base name        */
+   int         f_lines;                     /* file line number               */
+   char        f_recd      [LEN_RECD ];     /* current file record            */
+   char        f_type      [LEN_RECD ];     /* current record verb            */
    /*---(done)-----------------*/
 };
 extern tMY         myFILE;
@@ -77,9 +105,15 @@ extern tMY         myFILE;
 
 /*===[[ yFILE_test.c ]]=======================================================*/
 /*345678901-12345678901-12345678901-12345678901-12345678901-12345678901-123456*/
+/*---(program)--------------*/
 char        yfile__unit_quiet       (void);
 char        yfile__unit_loud        (void);
 char        yfile__unit_end         (void);
+/*---(stubs)----------------*/
+char        yfile__unit_handlers    (void);
+char        yfile__unit_prepper     (char a_pass);
+char        yfile__unit_finisher    (char a_pass);
+/*---(done)-----------------*/
 
 
 
@@ -96,6 +130,19 @@ char        yFILE_minor             (void);
 char        yFILE_inc               (void);
 char        yFILE_vernum            (char *a_ver);
 /*---(done)-----------------*/
+
+
+
+/*===[[ yFILE_name.c ]]=======================================================*/
+/*345678901-12345678901-12345678901-12345678901-12345678901-12345678901-123456*/
+/*---(regex)----------------*/
+char        yfile__name_prep        (char a_type, char *a_ext, char *a_base, char *a_entry, char *r_match, char *r_elen);
+char        yfile__name_regex       (char a_type, char *a_ext, char *a_base, char *a_entry, char *r_match);
+/*---(ext)------------------*/
+char        yfile__name_stripext    (char *a_full);
+/*---(path)-----------------*/
+char        yfile__name_path        (char *a_path);
+char        yFILE_loc               (char *a_path);
 
 
 

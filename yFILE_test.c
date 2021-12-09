@@ -21,7 +21,13 @@ yfile__unit_quiet      (void)
    yPARSE_delimiters  ("");
    yMODE_init (MODE_MAP);
    yMODE_handler_setup ();
+   yMACRO_global_init ();
    yFILE_init ();
+   yCMD_init  ();
+   yKEYS_init           ();
+   yMAP_init            ();
+   ySRC_init            ();
+   yMACRO_init          ();
    return 0;
 }
 
@@ -39,23 +45,56 @@ yfile__unit_loud       (void)
    yURG_name  ("yparse"       , YURG_ON);
    yURG_name  ("keys"         , YURG_ON);
    yURG_name  ("file"         , YURG_ON);
-   DEBUG_SCRP   yLOG_info     ("yFILE"      , yFILE_version   ());
+   yURG_name  ("cmds"         , YURG_ON);
+   yURG_name  ("mode"         , YURG_ON);
+   yURG_name  ("edit"         , YURG_ON);
+   DEBUG_YFILE   yLOG_info     ("yFILE"      , yFILE_version   ());
    yMODE_init (MODE_MAP);
    yMODE_handler_setup ();
+   yMACRO_global_init ();
    yFILE_init ();
+   yCMD_init  ();
+   yKEYS_init           ();
+   yMAP_init            ();
+   ySRC_init            ();
+   yMACRO_init          ();
    return 0;
 }
 
 char       /*----: stop logging ----------------------------------------------*/
 yfile__unit_end        (void)
 {
-   DEBUG_PROG   yLOG_enter   (__FUNCTION__);
+   DEBUG_YFILE   yLOG_enter   (__FUNCTION__);
    yFILE_wrap ();
-   DEBUG_PROG   yLOG_exit    (__FUNCTION__);
+   DEBUG_YFILE   yLOG_exit    (__FUNCTION__);
    yLOGS_end    ();
    return 0;
 }
 
+
+
+/*====================------------------------------------====================*/
+/*===----                   unit testing stubs                         ----===*/
+/*====================------------------------------------====================*/
+static void  o___STUBS___________o () { return; }
+
+char
+yfile__unit_handlers    (void)
+{
+   return 0;
+}
+
+char
+yfile__unit_prepper     (char a_pass)
+{
+   return 0;
+}
+
+char
+yfile__unit_finisher    (char a_pass)
+{
+   return 0;
+}
 
 
 /*====================------------------------------------====================*/

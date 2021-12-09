@@ -11,6 +11,7 @@
 char*       yFILE_version           (void);
 /*---(program)--------------*/
 char        yFILE_init              (void);
+char        yFILE_whoami            (char *a_full, char *a_vernum, char *a_vertxt, char *a_namesake, char *a_ext, char *a_filetype, void *a_handlers, void *a_prepper, void *a_finisher);
 char        yFILE_wrap              (void);
 /*---(done)-----------------*/
 
@@ -36,6 +37,13 @@ char        yFILE_vernum            (char *a_ver);
 char        yFILE_vertxt            (char *a_txt);
 /*---(done)-----------------*/
 
+
+
+/*===[[ yFILE_name.c ]]=======================================================*/
+/*345678901-12345678901-12345678901-12345678901-12345678901-12345678901-123456*/
+char        yFILE_loc               (char *a_path);
+char        yFILE_name              (char *a_name);
+char        yFILE_browse            (char *a_name);
 
 
 #endif

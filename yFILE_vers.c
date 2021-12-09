@@ -17,20 +17,20 @@ yfile_vers_controlled   (char *a_yes)
    char        rce         =  -10;
    char        x_opt       =  '-';
    /*---(header)-------------------------*/
-   DEBUG_HIST   yLOG_senter  (__FUNCTION__);
+   DEBUG_YFILE   yLOG_senter  (__FUNCTION__);
    /*---(defense)------------------------*/
    --rce;  if (!yMODE_operational (FMOD_FILE)) {
-      DEBUG_HIST   yLOG_snote   ("can not execute until operational");
-      DEBUG_HIST   yLOG_sexitr  (__FUNCTION__, rce);
+      DEBUG_YFILE   yLOG_snote   ("can not execute until operational");
+      DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
       return rce;
    }
    /*---(defense)------------------------*/
-   DEBUG_HIST   yLOG_spoint  (a_yes);
+   DEBUG_YFILE   yLOG_spoint  (a_yes);
    --rce;  if (a_yes == NULL || a_yes [0] == '\0') {
-      DEBUG_HIST   yLOG_sexitr  (__FUNCTION__, rce);
+      DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
       return rce;
    }
-   DEBUG_HIST   yLOG_snote   (a_yes);
+   DEBUG_YFILE   yLOG_snote   (a_yes);
    /*---(translate)----------------------*/
    if (strlen (a_yes) > 1) {
       if (strcmp ("yes", a_yes) == 0)  x_opt = 'y';
@@ -46,9 +46,9 @@ yfile_vers_controlled   (char *a_yes)
       }
    }
    /*---(bad option)---------------------*/
-   DEBUG_HIST   yLOG_schar   (x_opt);
+   DEBUG_YFILE   yLOG_schar   (x_opt);
    --rce;  if (x_opt == '-') {
-      DEBUG_HIST   yLOG_sexitr  (__FUNCTION__, rce);
+      DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
       return rce;
    }
    /*---(prepare)------------------------*/
@@ -56,25 +56,25 @@ yfile_vers_controlled   (char *a_yes)
    /*---(turn on)------------------------*/
    if (x_opt == 'y') {
       if (myFILE.f_control == '-') {
-         DEBUG_HIST   yLOG_snote   ("turn on");
+         DEBUG_YFILE   yLOG_snote   ("turn on");
          myFILE.f_control = 'y';
          strlcpy (myFILE.f_vernum, "0.0a", LEN_LABEL);
       } else {
-         DEBUG_HIST   yLOG_snote   ("already on");
+         DEBUG_YFILE   yLOG_snote   ("already on");
       }
    }
    /*---(turn off)-----------------------*/
    if (x_opt == 'n') {
       if (myFILE.f_control == 'y') {
-         DEBUG_HIST   yLOG_snote   ("turn off");
+         DEBUG_YFILE   yLOG_snote   ("turn off");
          myFILE.f_control = '-';
          strlcpy (myFILE.f_vernum, "-´--", LEN_LABEL);
       } else {
-         DEBUG_HIST   yLOG_snote   ("already off");
+         DEBUG_YFILE   yLOG_snote   ("already off");
       }
    }
    /*---(complete)-----------------------*/
-   DEBUG_HIST   yLOG_sexit   (__FUNCTION__);
+   DEBUG_YFILE   yLOG_sexit   (__FUNCTION__);
    return 0;
 }
 
@@ -95,22 +95,22 @@ yfile_vers_bump         (char a_type)
    char        rce         = -10;
    char        rc          = 0;
    /*---(header)-------------------------*/
-   DEBUG_HIST   yLOG_senter  (__FUNCTION__);
+   DEBUG_YFILE   yLOG_senter  (__FUNCTION__);
    /*---(defense)------------------------*/
    --rce;  if (!yMODE_operational (FMOD_FILE)) {
-      DEBUG_HIST   yLOG_snote   ("can not execute until operational");
-      DEBUG_HIST   yLOG_sexitr  (__FUNCTION__, rce);
+      DEBUG_YFILE   yLOG_snote   ("can not execute until operational");
+      DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
       return rce;
    }
    /*---(defense)------------------------*/
-   DEBUG_HIST   yLOG_schar   (myFILE.f_control);
+   DEBUG_YFILE   yLOG_schar   (myFILE.f_control);
    --rce;  if (myFILE.f_control != 'y') {
-      DEBUG_HIST   yLOG_sexitr  (__FUNCTION__, rce);
+      DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
       return rce;
    }
-   DEBUG_HIST   yLOG_schar   (a_type);
+   DEBUG_YFILE   yLOG_schar   (a_type);
    --rce;  if (a_type == '\0' || strchr ("Mmi", a_type) == NULL) {
-      DEBUG_HIST   yLOG_sexitr  (__FUNCTION__, rce);
+      DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
       return rce;
    }
    /*---(prepare)------------------------*/
@@ -119,13 +119,13 @@ yfile_vers_bump         (char a_type)
    --rce;  if (a_type == 'i') {
       if (myFILE.f_vernum [3] <  'z') {
          ++(myFILE.f_vernum [3]);
-         DEBUG_HIST   yLOG_snote   ("increment updated");
-         DEBUG_HIST   yLOG_sexit   (__FUNCTION__);
+         DEBUG_YFILE   yLOG_snote   ("increment updated");
+         DEBUG_YFILE   yLOG_sexit   (__FUNCTION__);
          return 0;
       }
-      DEBUG_HIST   yLOG_snote   ("increment already at z");
+      DEBUG_YFILE   yLOG_snote   ("increment already at z");
       myFILE.f_vernum [3] = '?';
-      DEBUG_HIST   yLOG_sexitr  (__FUNCTION__, rce);
+      DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
       return  rce;
    }
    /*---(minor)--------------------------*/
@@ -133,25 +133,25 @@ yfile_vers_bump         (char a_type)
    --rce;  if (a_type == 'm') {
       if (myFILE.f_vernum [2] <  '9') {
          ++(myFILE.f_vernum [2]);
-         DEBUG_HIST   yLOG_snote   ("numeric minor updated");
-         DEBUG_HIST   yLOG_sexit   (__FUNCTION__);
+         DEBUG_YFILE   yLOG_snote   ("numeric minor updated");
+         DEBUG_YFILE   yLOG_sexit   (__FUNCTION__);
          return 0;
       }
       if (myFILE.f_vernum [2] == '9') {
          myFILE.f_vernum [2] = 'A';
-         DEBUG_HIST   yLOG_snote   ("minor switched to alpha");
-         DEBUG_HIST   yLOG_sexit   (__FUNCTION__);
+         DEBUG_YFILE   yLOG_snote   ("minor switched to alpha");
+         DEBUG_YFILE   yLOG_sexit   (__FUNCTION__);
          return 0;
       }
       if (myFILE.f_vernum [2] <  'Z') {
          ++(myFILE.f_vernum [2]);
-         DEBUG_HIST   yLOG_snote   ("alpha minor updated");
-         DEBUG_HIST   yLOG_sexit   (__FUNCTION__);
+         DEBUG_YFILE   yLOG_snote   ("alpha minor updated");
+         DEBUG_YFILE   yLOG_sexit   (__FUNCTION__);
          return 0;
       }
-      DEBUG_HIST   yLOG_snote   ("minor already at Z");
+      DEBUG_YFILE   yLOG_snote   ("minor already at Z");
       myFILE.f_vernum [2] = '?';
-      DEBUG_HIST   yLOG_sexitr  (__FUNCTION__, rce);
+      DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
       return  rce;
    }
    /*---(major)--------------------------*/
@@ -159,30 +159,30 @@ yfile_vers_bump         (char a_type)
    --rce;  if (a_type == 'M') {
       if (myFILE.f_vernum [0] <  '9') {
          ++(myFILE.f_vernum [0]);
-         DEBUG_HIST   yLOG_snote   ("numeric major updated");
-         DEBUG_HIST   yLOG_sexit   (__FUNCTION__);
+         DEBUG_YFILE   yLOG_snote   ("numeric major updated");
+         DEBUG_YFILE   yLOG_sexit   (__FUNCTION__);
          return 0;
       }
       if (myFILE.f_vernum [0] == '9') {
          myFILE.f_vernum  [0] =  'A';
-         DEBUG_HIST   yLOG_snote   ("major switched to alpha");
-         DEBUG_HIST   yLOG_sexit   (__FUNCTION__);
+         DEBUG_YFILE   yLOG_snote   ("major switched to alpha");
+         DEBUG_YFILE   yLOG_sexit   (__FUNCTION__);
          return 0;
       }
       if (myFILE.f_vernum [0] <  'Z') {
          ++(myFILE.f_vernum[0]);
-         DEBUG_HIST   yLOG_snote   ("alpha major updated");
-         DEBUG_HIST   yLOG_sexit   (__FUNCTION__);
+         DEBUG_YFILE   yLOG_snote   ("alpha major updated");
+         DEBUG_YFILE   yLOG_sexit   (__FUNCTION__);
          return 0;
       }
-      DEBUG_HIST   yLOG_snote   ("major already at Z");
+      DEBUG_YFILE   yLOG_snote   ("major already at Z");
       myFILE.f_vernum [0] = '?';
-      DEBUG_HIST   yLOG_sexitr  (__FUNCTION__, rce);
+      DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
       return  rce;
    }
    /*---(complete)-----------------------*/
    --rce;
-   DEBUG_HIST   yLOG_sexitr  (__FUNCTION__, rce);
+   DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
    return  rce;
 }
 
@@ -198,91 +198,91 @@ yFILE_vernum             (char *a_ver)
    char        rce         = -10;
    char        x_work      [10];
    /*---(header)-------------------------*/
-   DEBUG_HIST   yLOG_senter  (__FUNCTION__);
+   DEBUG_YFILE   yLOG_senter  (__FUNCTION__);
    /*---(defense)------------------------*/
    --rce;  if (!yMODE_operational (FMOD_FILE)) {
-      DEBUG_HIST   yLOG_snote   ("can not execute until operational");
-      DEBUG_HIST   yLOG_sexitr  (__FUNCTION__, rce);
+      DEBUG_YFILE   yLOG_snote   ("can not execute until operational");
+      DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
       return rce;
    }
-   DEBUG_HIST   yLOG_schar   (myFILE.f_control);
+   DEBUG_YFILE   yLOG_schar   (myFILE.f_control);
    --rce;  if (myFILE.f_control != 'y') {
-      DEBUG_HIST   yLOG_sexitr  (__FUNCTION__, rce);
+      DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
       return rce;
    }
    /*---(defense)------------------------*/
-   DEBUG_HIST   yLOG_spoint  (a_ver);
+   DEBUG_YFILE   yLOG_spoint  (a_ver);
    --rce;  if (a_ver == NULL || a_ver [0] == '\0') {
-      DEBUG_HIST   yLOG_sexitr  (__FUNCTION__, rce);
+      DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
       return rce;
    }
-   DEBUG_HIST   yLOG_snote   (a_ver);
+   DEBUG_YFILE   yLOG_snote   (a_ver);
    x_len = strlen (a_ver);
-   DEBUG_HIST   yLOG_sint    (x_len);
+   DEBUG_YFILE   yLOG_sint    (x_len);
    --rce;  if (x_len != 4) {
-      DEBUG_HIST   yLOG_sexitr  (__FUNCTION__, rce);
+      DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
       return rce;
    }
    /*---(prepare)------------------------*/
    strlcpy  (x_work, a_ver, LEN_LABEL);
    /*---(test chars)---------------------*/
    --rce;  if (strchr (YSTR_LOWER, x_work [3]) == 0) {
-      DEBUG_HIST   yLOG_snote   ("inc is not a-z");
-      DEBUG_HIST   yLOG_sexitr  (__FUNCTION__, rce);
+      DEBUG_YFILE   yLOG_snote   ("inc is not a-z");
+      DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
       return rce;
    }
    --rce;  if (strchr (YSTR_UPNUM, x_work [2]) == 0) {
-      DEBUG_HIST   yLOG_snote   ("minor is not 0-9A-Z");
-      DEBUG_HIST   yLOG_sexitr  (__FUNCTION__, rce);
+      DEBUG_YFILE   yLOG_snote   ("minor is not 0-9A-Z");
+      DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
       return rce;
    }
    --rce;  if (x_work [1] != '.')  {
-      DEBUG_HIST   yLOG_snote   ("no dot between major and minor");
-      DEBUG_HIST   yLOG_sexitr  (__FUNCTION__, rce);
+      DEBUG_YFILE   yLOG_snote   ("no dot between major and minor");
+      DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
       return rce;
    }
    --rce;  if (strchr (YSTR_UPNUM, x_work [0]) == 0) {
-      DEBUG_HIST   yLOG_snote   ("major is not 0-9A-Z");
-      DEBUG_HIST   yLOG_sexitr  (__FUNCTION__, rce);
+      DEBUG_YFILE   yLOG_snote   ("major is not 0-9A-Z");
+      DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
       return rce;
    }
    /*---(check increase only)------------*/
-   DEBUG_HIST   yLOG_snote   (myFILE.f_vernum);
+   DEBUG_YFILE   yLOG_snote   (myFILE.f_vernum);
    --rce;  if (x_work [0] <  myFILE.f_vernum [0]) {
-      DEBUG_HIST   yLOG_snote   ("major can not be less");
-      DEBUG_HIST   yLOG_sexitr  (__FUNCTION__, rce);
+      DEBUG_YFILE   yLOG_snote   ("major can not be less");
+      DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
       return rce;
    }
    --rce;  if (x_work [0] == myFILE.f_vernum [0]) {
-      DEBUG_HIST   yLOG_snote   ("major same");
+      DEBUG_YFILE   yLOG_snote   ("major same");
       if (x_work [2] <  myFILE.f_vernum [2]) {
-         DEBUG_HIST   yLOG_snote   ("minor must be Ý");
-         DEBUG_HIST   yLOG_sexitr  (__FUNCTION__, rce);
+         DEBUG_YFILE   yLOG_snote   ("minor must be Ý");
+         DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
          return rce;
       }
       if (x_work [2] == myFILE.f_vernum [2]) {
-         DEBUG_HIST   yLOG_snote   ("minor same");
+         DEBUG_YFILE   yLOG_snote   ("minor same");
          if (x_work [3] <  myFILE.f_vernum [3]) {
-            DEBUG_HIST   yLOG_snote   ("inc must be Ý");
-            DEBUG_HIST   yLOG_sexitr  (__FUNCTION__, rce);
+            DEBUG_YFILE   yLOG_snote   ("inc must be Ý");
+            DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
             return rce;
          }
          if (x_work [3] >= myFILE.f_vernum [3]) {
-            DEBUG_HIST   yLOG_snote   ("inc inceased or same");
+            DEBUG_YFILE   yLOG_snote   ("inc inceased or same");
          }
       }
       if (x_work [2] >  myFILE.f_vernum [2]) {
-         DEBUG_HIST   yLOG_snote   ("minor increased");
+         DEBUG_YFILE   yLOG_snote   ("minor increased");
       }
    }
    if (x_work [0] >  myFILE.f_vernum [0]) {
-      DEBUG_HIST   yLOG_snote   ("major increased, all is fair");
+      DEBUG_YFILE   yLOG_snote   ("major increased, all is fair");
    }
    /*---(finalize)-----------------------*/
    strlcpy (myFILE.f_vernum, x_work, LEN_LABEL);
    strlcpy (myFILE.f_vertxt, "", LEN_HUND);
    /*---(complete)-----------------------*/
-   DEBUG_HIST   yLOG_sexit   (__FUNCTION__);
+   DEBUG_YFILE   yLOG_sexit   (__FUNCTION__);
    return 0;
 }
 
@@ -299,32 +299,32 @@ yFILE_vertxt             (char *a_txt)
    /*---(locals)-----------+-----------+-*/
    char        rce         =  -10;
    /*---(header)-------------------------*/
-   DEBUG_HIST   yLOG_senter  (__FUNCTION__);
+   DEBUG_YFILE   yLOG_senter  (__FUNCTION__);
    /*---(defense)------------------------*/
    --rce;  if (!yMODE_operational (FMOD_FILE)) {
-      DEBUG_HIST   yLOG_note    ("can not execute until operational");
-      DEBUG_HIST   yLOG_exitr   (__FUNCTION__, rce);
+      DEBUG_YFILE   yLOG_note    ("can not execute until operational");
+      DEBUG_YFILE   yLOG_exitr   (__FUNCTION__, rce);
       return rce;
    }
-   DEBUG_HIST   yLOG_schar   (myFILE.f_control);
+   DEBUG_YFILE   yLOG_schar   (myFILE.f_control);
    --rce;  if (myFILE.f_control != 'y') {
-      DEBUG_HIST   yLOG_sexitr  (__FUNCTION__, rce);
+      DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
       return rce;
    }
    /*---(prepare)------------------------*/
    strlcpy (myFILE.f_vertxt, "", LEN_HUND);
    /*---(defense)------------------------*/
-   DEBUG_HIST   yLOG_spoint  (a_txt);
+   DEBUG_YFILE   yLOG_spoint  (a_txt);
    --rce;  if (a_txt == NULL || a_txt [0] == '\0') {
-      DEBUG_HIST   yLOG_sexitr  (__FUNCTION__, rce);
+      DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
       return rce;
    }
-   DEBUG_HIST   yLOG_snote   (a_txt);
+   DEBUG_YFILE   yLOG_snote   (a_txt);
    /*---(save)---------------------------*/
    strlcpy  (myFILE.f_vertxt, a_txt,     LEN_HUND);
    strltrim (myFILE.f_vertxt, ySTR_BOTH, LEN_HUND);
    /*---(complete)-----------------------*/
-   DEBUG_HIST   yLOG_sexit   (__FUNCTION__);
+   DEBUG_YFILE   yLOG_sexit   (__FUNCTION__);
    return 0;
 }
 
