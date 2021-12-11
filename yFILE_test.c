@@ -96,6 +96,15 @@ yfile__unit_finisher    (char a_pass)
    return 0;
 }
 
+char
+yfile__unit_dump        (FILE *f)
+{
+   fprintf (f, "first\n");
+   fprintf (f, "second\n");
+   fprintf (f, "third\n");
+   return 0;
+}
+
 
 /*====================------------------------------------====================*/
 /*===----                   unit testing accessor                      ----===*/
@@ -114,16 +123,16 @@ yFILE__unit             (char *a_question, int a_ref)
    /*---(selection)----------------------*/
    if        (strcmp (a_question, "version"   )    == 0) {
       snprintf (unit_answer, LEN_FULL, "FILE version     : %c  %-4.4s  %2då%sæ", myFILE.f_control, myFILE.f_vernum, strlen (myFILE.f_vertxt), myFILE.f_vertxt);
-   /*> } else if (strcmp (a_question, "recd"      )    == 0) {                                                                <* 
-    *>    snprintf (yVIKEYS__unit_answer, LEN_FULL, "FILE recd        : %s", myVIKEYS.f_recd);                                <* 
-    *> } else if (strcmp (a_question, "loc"       )    == 0) {                                                                <* 
-    *>    if (myVIKEYS.f_loc [0] == 0)  snprintf (yVIKEYS__unit_answer, LEN_FULL, "FILE loc         : -");                    <* 
-    *>    else                          snprintf (yVIKEYS__unit_answer, LEN_FULL, "FILE loc         : %s", myVIKEYS.f_loc);   <* 
-    *> } else if (strcmp (a_question, "title"     )    == 0) {                                                                <* 
-    *>    snprintf (yVIKEYS__unit_answer, LEN_FULL, "FILE title       : %s", myVIKEYS.f_title);                               <*/
-   }
-   /*---(complete)-----------------------*/
-   return unit_answer;
+      /*> } else if (strcmp (a_question, "recd"      )    == 0) {                                                                <* 
+       *>    snprintf (yVIKEYS__unit_answer, LEN_FULL, "FILE recd        : %s", myVIKEYS.f_recd);                                <* 
+       *> } else if (strcmp (a_question, "loc"       )    == 0) {                                                                <* 
+       *>    if (myVIKEYS.f_loc [0] == 0)  snprintf (yVIKEYS__unit_answer, LEN_FULL, "FILE loc         : -");                    <* 
+       *>    else                          snprintf (yVIKEYS__unit_answer, LEN_FULL, "FILE loc         : %s", myVIKEYS.f_loc);   <* 
+       *> } else if (strcmp (a_question, "title"     )    == 0) {                                                                <* 
+       *>    snprintf (yVIKEYS__unit_answer, LEN_FULL, "FILE title       : %s", myVIKEYS.f_title);                               <*/
+}
+/*---(complete)-----------------------*/
+return unit_answer;
 }
 
 

@@ -11,7 +11,7 @@
 
 #define     P_FOCUS     "RS (run-time support)"
 #define     P_NICHE     "us (user control)"
-#define     P_SUBJECT   "file management"
+#define     P_SUBJECT   "content file management"
 #define     P_PURPOSE   ""
 
 #define     P_NAMESAKE  "apollodorus-bibliothikarios (librarian)"
@@ -36,8 +36,8 @@
 
 #define     P_VERMAJOR  "2.--, clean, improve, and expand"
 #define     P_VERMINOR  "2.0-, break away from yVIKEYS"
-#define     P_VERNUM    "2.0c"
-#define     P_VERTXT    "most name logic cleaned, improved, and unit tested"
+#define     P_VERNUM    "2.0d"
+#define     P_VERTXT    "added and unit tested dump commands"
 
 #define     P_PRIORITY  "direct, simple, brief, vigorous, and lucid (h.w. fowler)"
 #define     P_PRINCIPAL "[grow a set] and build your wings on the way down (r. bradbury)"
@@ -68,9 +68,15 @@
 /*---(done)------------------------------*/
 
 
+
 typedef     struct dirent     tDIRENT;
 typedef     struct stat       tSTAT;
+
+
+
 #define     YFILE_BLANK      "untitled"
+#define     YFILE_CLIP       "/root/z_gehye/vi_clip.txt"
+
 
 
 typedef    struct    cMY    tMY;
@@ -97,6 +103,8 @@ struct cMY {
    int         f_lines;                     /* file line number               */
    char        f_recd      [LEN_RECD ];     /* current file record            */
    char        f_type      [LEN_RECD ];     /* current record verb            */
+   /*---(testing)---------*/
+   char        g_print     [LEN_RECD];      /* shared output line             */
    /*---(done)-----------------*/
 };
 extern tMY         myFILE;
@@ -113,6 +121,7 @@ char        yfile__unit_end         (void);
 char        yfile__unit_handlers    (void);
 char        yfile__unit_prepper     (char a_pass);
 char        yfile__unit_finisher    (char a_pass);
+char        yfile__unit_dump        (FILE *f);
 /*---(done)-----------------*/
 
 
@@ -145,5 +154,14 @@ char        yfile__name_path        (char *a_path);
 char        yFILE_loc               (char *a_path);
 
 
+
+/*===[[ yFILE_dump.c ]]=======================================================*/
+/*345678901-12345678901-12345678901-12345678901-12345678901-12345678901-123456*/
+char        yfile_dump_init         (void);
+char        yfile_dump_wrap         (void);
+char        yfile_dumps             (FILE *f);
+char        yfile_dump_count        (void);
+char*       yfile_dump_by_index     (char n);
+char        yfile_dump_by_name      (char *a_name);
 
 #endif

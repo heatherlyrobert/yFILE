@@ -46,5 +46,22 @@ char        yFILE_name              (char *a_name);
 char        yFILE_browse            (char *a_name);
 
 
+
+/*===[[ yFILE_io.c ]]=========================================================*/
+/*345678901-12345678901-12345678901-12345678901-12345678901-12345678901-123456*/
+char        yFILE_new               (void);
+char        yFILE_reader            (void);
+char        yFILE_writer            (void);
+char        yFILE_writeas           (char *a_name);
+
+
+
+/*===[[ yFILE_dump.c ]]=======================================================*/
+/*345678901-12345678901-12345678901-12345678901-12345678901-12345678901-123456*/
+char        yFILE_dump_add          (char *a_name, char *a_desc, void *a_provider);
+char        yFILE_dump              (char *a_name);
+
+
+
 #endif
 /*============================----end-of-source---============================*/

@@ -53,6 +53,11 @@ yFILE_init              (void)
       DEBUG_YFILE   yLOG_exitr   (__FUNCTION__, rce);
       return rce;
    }
+   /*---(get parse moving)---------------*/
+   yPARSE_init  ('y', NULL, '-');
+   yPARSE_delimiters  ("");
+   /*---(basic initializations)----------*/
+   yfile_dump_init  ();
    /*---(versioning)---------------------*/
    DEBUG_YFILE   yLOG_note    ("default versioning data");
    myFILE.f_control = '-';
@@ -155,7 +160,7 @@ yFILE_whoami            (char *a_full, char *a_vernum, char *a_vertxt, char *a_n
    /*---(update stage)-------------------*/
    yMODE_conf_set (FMOD_FILE, '1');
    /*---(default file name)--------------*/
-   /*> yvikeys_file_name (NULL);                                                      <*/
+   yFILE_name (NULL);
    /*---(complete)-----------------------*/
    DEBUG_YFILE   yLOG_exit    (__FUNCTION__);
    return 0;
@@ -164,6 +169,7 @@ yFILE_whoami            (char *a_full, char *a_vernum, char *a_vertxt, char *a_n
 char
 yFILE_wrap              (void)
 {
+   yfile_dump_wrap ();
    return 0;
 }
 

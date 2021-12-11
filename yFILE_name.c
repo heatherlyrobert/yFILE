@@ -348,6 +348,7 @@ yFILE_loc               (char *a_path)
    /*---(save)---------------------------*/
    strlcpy (myFILE.f_loc  , t, LEN_RECD);
    DEBUG_YFILE   yLOG_info    ("f_loc"     , myFILE.f_loc);
+   sprintf (myFILE.f_title, "%s%s.%s"   , myFILE.f_loc, myFILE.f_name, myFILE.s_ext);
    /*---(complete)-----------------------*/
    DEBUG_YFILE   yLOG_exit    (__FUNCTION__);
    return 0;
