@@ -58,7 +58,7 @@ char        yFILE_writeas           (char *a_name);
 
 /*===[[ yFILE_dump.c ]]=======================================================*/
 /*345678901-12345678901-12345678901-12345678901-12345678901-12345678901-123456*/
-char        yFILE_dump_add          (char *a_name, char *a_desc, void *a_provider);
+char        yFILE_dump_add          (char *a_name, char *a_terse, char *a_desc, void *a_provider);
 char        yFILE_dump              (char *a_name);
 
 

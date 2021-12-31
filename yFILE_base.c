@@ -69,7 +69,7 @@ yFILE_init              (void)
    strlcpy (myFILE.s_fullname, ""      , LEN_DESC );
    strlcpy (myFILE.s_vernum  , "-´--"  , LEN_LABEL);
    strlcpy (myFILE.s_vertxt  , ""      , LEN_DESC );
-   strlcpy (myFILE.s_namesake, ""      , LEN_DESC );
+   strlcpy (myFILE.s_namesake, ""      , LEN_HUND );
    strlcpy (myFILE.s_ext     , ""      , LEN_LABEL);
    strlcpy (myFILE.s_filetype, ""      , LEN_DESC );
    sprintf (myFILE.f_loc     , "%s/", getcwd (NULL, 0));
@@ -130,7 +130,7 @@ yFILE_whoami            (char *a_full, char *a_vernum, char *a_vertxt, char *a_n
    /*---(calling one-line desc)----------*/
    DEBUG_YFILE   yLOG_point   ("a_namesake" , a_namesake);
    --rce;  if (a_namesake != NULL) {
-      strlcpy (myFILE.s_namesake, a_namesake, LEN_DESC);
+      strlcpy (myFILE.s_namesake, a_namesake, LEN_HUND);
       DEBUG_YFILE   yLOG_info    ("s_namesake", myFILE.s_namesake);
    }
    /*---(default extension)--------------*/

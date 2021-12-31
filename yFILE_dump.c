@@ -6,6 +6,7 @@
 
 typedef struct cDUMP tDUMP;
 static struct cDUMP {
+   char       *terse;
    char       *name;
    char       *desc;
    char      (*provider) (FILE*);           /* function pointer               */
@@ -15,6 +16,7 @@ static tDUMP      *s_hdump     = NULL;
 static tDUMP      *s_tdump     = NULL;
 static int         s_ndump     =    0;
 
+static char   *s_nada          = "-";
 
 
 /*====================------------------------------------====================*/
@@ -33,7 +35,7 @@ yfile_dump_init         (void)
    /*---(globals)------------------------*/
    s_hdump = s_tdump = NULL;
    s_ndump = 0;
-   rc = yFILE_dump_add ("?"         , "inventory of dump options"   , yfile_dumps        );
+   rc = yFILE_dump_add ("?"           , NULL ,  "inventory of dump options"                         , yfile_dumps              );
    /*> rc = yFILE_dump_add ("keys"        , yMACRO_dump         );                    <*/
    /*> rc = yFILE_dump_add ("status"      , yMODE_statuses      );                    <*/
    /*> rc = yFILE_dump_add ("macros"      , yMACRO_dump         );                    <*/
@@ -47,21 +49,29 @@ char
 yfile_dump_wrap         (void)
 {
    tDUMP      *x_next      = NULL;
-   DEBUG_SCRP   yLOG_senter  (__FUNCTION__);
+   DEBUG_YFILE   yLOG_senter  (__FUNCTION__);
    x_next = s_hdump;
    while (x_next != NULL) {
-      DEBUG_SCRP   yLOG_sint    (s_ndump);
+      DEBUG_YFILE   yLOG_sint    (s_ndump);
       x_next  = x_next->next;
       free (s_hdump->name);
-      free (s_hdump->desc);
+      if (s_hdump->terse != s_nada)  free (s_hdump->terse);
+      if (s_hdump->desc  != s_nada)  free (s_hdump->desc);
       free (s_hdump);
       s_hdump = x_next;
       --s_ndump;
    }
    s_hdump = s_tdump = NULL;
-   DEBUG_SCRP   yLOG_sexit   (__FUNCTION__);
+   DEBUG_YFILE   yLOG_sexit   (__FUNCTION__);
    return 0;
 }
+
+
+
+/*====================------------------------------------====================*/
+/*===----                      finding dump records                    ----===*/
+/*====================------------------------------------====================*/
+static void      o___SEARCH__________________o (void) {;}
 
 char yfile_dump_count        (void) { return s_ndump; }
 
@@ -74,7 +84,7 @@ yfile_dump_by_index     (char n)
    x_dump = s_hdump;
    while (x_dump != NULL) {
       if (c == n) {
-         sprintf (myFILE.g_print, "%-2d  %-8.8s  %s", n, x_dump->name, x_dump->desc);
+         sprintf (myFILE.g_print, "%-2d  %-12.12s  %-3.3s  %s", n, x_dump->name, x_dump->terse, x_dump->desc);
          return myFILE.g_print;
       }
       x_dump = x_dump->next;
@@ -84,12 +94,26 @@ yfile_dump_by_index     (char n)
 }
 
 char
+yfile_dump_by_terse     (char *a_terse)
+{
+   tDUMP      *x_dump      = NULL;
+   x_dump = s_hdump;
+   if (a_terse     == NULL)  return  0;
+   if (a_terse [0] == '\0')  return  0;
+   while (x_dump != NULL) {
+      if (strcmp (a_terse, x_dump->terse) == 0)  return 1;
+      x_dump = x_dump->next;
+   }
+   return 0;
+}
+
+char
 yfile_dump_by_name      (char *a_name)
 {
    tDUMP      *x_dump      = NULL;
    x_dump = s_hdump;
-   if (a_name     == NULL)  return -1;
-   if (a_name [0] == '\0')  return -2;
+   if (a_name      == NULL)  return -1;
+   if (a_name [0]  == '\0')  return -2;
    while (x_dump != NULL) {
       if (strcmp (a_name, x_dump->name) == 0)  return 1;
       x_dump = x_dump->next;
@@ -105,7 +129,7 @@ yfile_dump_by_name      (char *a_name)
 static void      o___CREATE__________________o (void) {;}
 
 char
-yFILE_dump_add          (char *a_name, char *a_desc, void *a_provider)
+yFILE_dump_add          (char *a_name, char *a_terse, char *a_desc, void *a_provider)
 {
    /*---(locals)-----------+-----+-----+-*/
    char        rce         =  -10;
@@ -124,6 +148,29 @@ yFILE_dump_add          (char *a_name, char *a_desc, void *a_provider)
    x_len = strlen (a_name);
    DEBUG_YFILE   yLOG_sint    (x_len);
    --rce;  if (x_len < 1) {
+      DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
+      return  rce;
+   }
+   DEBUG_YFILE   yLOG_spoint  (a_terse);
+   --rce;  if (a_terse != NULL) {
+      x_len = strlen (a_terse);
+      DEBUG_YFILE   yLOG_sint    (x_len);
+      --rce;  if (x_len > 3) {
+         DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
+         return  rce;
+      }
+   }
+   /*---(find dup terse)-----------------*/
+   x_dup = yfile_dump_by_terse (a_terse);
+   DEBUG_YFILE   yLOG_sint    (x_dup);
+   --rce;  if (x_dup != 0) {
+      DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
+      return  rce;
+   }
+   /*---(find dup name)------------------*/
+   x_dup = yfile_dump_by_terse (a_name);
+   DEBUG_YFILE   yLOG_sint    (x_dup);
+   --rce;  if (x_dup != 0) {
       DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
       return  rce;
    }
@@ -150,6 +197,10 @@ yFILE_dump_add          (char *a_name, char *a_desc, void *a_provider)
       DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
       return  rce;
    }
+   /*---(clear)--------------------------*/
+   x_new->terse = s_nada;
+   x_new->name  = s_nada;
+   x_new->desc  = s_nada;
    /*---(tie to linked list)-------------*/
    DEBUG_YFILE   yLOG_snote   ("link");
    x_new->next   = NULL;
@@ -159,8 +210,8 @@ yFILE_dump_add          (char *a_name, char *a_desc, void *a_provider)
    /*---(populate)-----------------------*/
    DEBUG_YFILE   yLOG_snote   ("populate");
    x_new->name     = strdup (a_name);
-   if (a_desc != NULL)  x_new->desc     = strdup (a_desc);
-   else                 x_new->desc     = strdup (a_name);
+   if (a_terse != NULL && a_terse [0] != '\0')  x_new->terse    = strdup (a_terse);
+   if (a_desc  != NULL && a_desc  [0] != '\0')  x_new->desc     = strdup (a_desc);
    x_new->provider = a_provider;
    /*---(complete)-----------------------*/
    ++s_ndump;
@@ -215,7 +266,8 @@ yFILE_dump              (char *a_name)
    x_curr = s_hdump;
    while (x_curr != NULL) {
       DEBUG_YFILE   yLOG_info    ("check"     , x_curr->name);
-      if (strcmp (a_name, x_curr->name) == 0)   break;
+      if (strcmp (a_name, x_curr->name)  == 0)   break;
+      if (strcmp (a_name, x_curr->terse) == 0)   break;
       x_curr = x_curr->next;
    }
    DEBUG_YFILE   yLOG_point   ("x_curr"    , x_curr);
@@ -248,7 +300,7 @@ yfile_dumps             (FILE *f)
    x_curr = s_hdump;
    while (x_curr != NULL) {
       DEBUG_YFILE   yLOG_info    ("printing"  , x_curr->name);
-      fprintf (f, "%-12.12s  %s\n", x_curr->name, x_curr->desc);;
+      fprintf (f, "%-12.12s § %-3.3s § %s §\n", x_curr->name, x_curr->terse, x_curr->desc);;
       x_curr = x_curr->next;
    }
    DEBUG_YFILE   yLOG_exit    (__FUNCTION__);

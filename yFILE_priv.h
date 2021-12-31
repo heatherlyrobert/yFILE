@@ -36,8 +36,8 @@
 
 #define     P_VERMAJOR  "2.--, clean, improve, and expand"
 #define     P_VERMINOR  "2.0-, break away from yVIKEYS"
-#define     P_VERNUM    "2.0d"
-#define     P_VERTXT    "added and unit tested dump commands"
+#define     P_VERNUM    "2.0e"
+#define     P_VERTXT    "added terse option to dumps"
 
 #define     P_PRIORITY  "direct, simple, brief, vigorous, and lucid (h.w. fowler)"
 #define     P_PRINCIPAL "[grow a set] and build your wings on the way down (r. bradbury)"
@@ -86,7 +86,7 @@ struct cMY {
    char        s_fullname  [LEN_DESC];      /* program name with path         */
    char        s_vernum    [LEN_LABEL];     /* program version number         */
    char        s_vertxt    [LEN_DESC];      /* program version text           */
-   char        s_namesake  [LEN_DESC];      /* program greek name             */
+   char        s_namesake  [LEN_HUND];      /* program greek name             */
    char        s_ext       [LEN_LABEL];     /* file extention                 */
    char        s_filetype  [LEN_DESC];      /* description of file extension  */
    /*---(functions)------------*/
@@ -122,6 +122,9 @@ char        yfile__unit_handlers    (void);
 char        yfile__unit_prepper     (char a_pass);
 char        yfile__unit_finisher    (char a_pass);
 char        yfile__unit_dump        (FILE *f);
+/*---(mreg)-----------------*/
+char        yfile__unit_purge       (void);
+char        yfile__unit_mreg_map    (char *a_list);
 /*---(done)-----------------*/
 
 
@@ -162,6 +165,7 @@ char        yfile_dump_wrap         (void);
 char        yfile_dumps             (FILE *f);
 char        yfile_dump_count        (void);
 char*       yfile_dump_by_index     (char n);
+char        yfile_dump_by_terse     (char *a_terse);
 char        yfile_dump_by_name      (char *a_name);
 
 #endif

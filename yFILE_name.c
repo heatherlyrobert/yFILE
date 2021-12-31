@@ -410,65 +410,65 @@ yfile__name             (char a_type, char *a_name)
    char       *p           = NULL;
    int         x_len       =    0;
    /*---(header)-------------------------*/
-   DEBUG_INPT   yLOG_enter   (__FUNCTION__);
+   DEBUG_YFILE   yLOG_enter   (__FUNCTION__);
    /*---(defense)------------------------*/
    --rce;  if (!yMODE_operational (FMOD_FILE)) {
-      DEBUG_HIST   yLOG_note    ("can not execute until operational");
-      DEBUG_HIST   yLOG_exitr   (__FUNCTION__, rce);
+      DEBUG_YFILE   yLOG_note    ("can not execute until operational");
+      DEBUG_YFILE   yLOG_exitr   (__FUNCTION__, rce);
       return rce;
    }
    /*---(deal with empties)--------------*/
-   DEBUG_INPT   yLOG_point   ("a_name"    , a_name);
+   DEBUG_YFILE   yLOG_point   ("a_name"    , a_name);
    if (a_name == NULL || a_name [0] == 0) {
-      DEBUG_INPT   yLOG_note    ("a_name was null, using defaults");
+      DEBUG_YFILE   yLOG_note    ("a_name was null, using defaults");
       strlcpy (myFILE.f_name , YFILE_BLANK, LEN_RECD);
       sprintf (myFILE.f_title, "%s%s.%s"   , myFILE.f_loc, myFILE.f_name, myFILE.s_ext);
-      DEBUG_INPT   yLOG_exit    (__FUNCTION__);
+      DEBUG_YFILE   yLOG_exit    (__FUNCTION__);
       return 0;
    }
    /*---(relative vs absolute)-----------*/
    if (a_name [0] == '/')  strlcpy  (x_work, a_name, LEN_RECD);
    else                    snprintf (x_work, LEN_RECD, "%s%s", myFILE.f_loc, a_name);
-   DEBUG_INPT   yLOG_info    ("x_work"    , x_work);
+   DEBUG_YFILE   yLOG_info    ("x_work"    , x_work);
    /*---(strip extensions)---------------*/
    rc = yfile__name_stripext (x_work);
-   DEBUG_INPT   yLOG_value   ("stripext"  , rc);
+   DEBUG_YFILE   yLOG_value   ("stripext"  , rc);
    /*---(divide out location)------------*/
    p = strrchr (x_work, '/');
-   DEBUG_INPT   yLOG_point   ("p"         , p);
+   DEBUG_YFILE   yLOG_point   ("p"         , p);
    --rce;  if (p != NULL) {
-      DEBUG_INPT   yLOG_note    ("fully qualified name, with directory");
+      DEBUG_YFILE   yLOG_note    ("fully qualified name, with directory");
       *p = 0;
       sprintf (x_dir, "%s/", x_work, LEN_RECD);
       rc = yfile__name_temploc (x_dir);
       if (rc < 0) {
-         DEBUG_INPT   yLOG_exit    (__FUNCTION__);
+         DEBUG_YFILE   yLOG_exit    (__FUNCTION__);
          return rc;
       }
    } else {
-      DEBUG_HIST   yLOG_exitr   (__FUNCTION__, rce);
+      DEBUG_YFILE   yLOG_exitr   (__FUNCTION__, rce);
       return rce;
    }
    /*---(check for bad characters)-------*/
    p++;
    x_len = strllen (p, LEN_RECD);
-   DEBUG_HIST   yLOG_value   ("x_len"     , x_len);
+   DEBUG_YFILE   yLOG_value   ("x_len"     , x_len);
    /*---(check for regex)----------------*/
    --rce;  if (a_type == 'r' && x_len > 0) {
       if (x_len <= 0) {
-         DEBUG_INPT   yLOG_note    ("file regex empty");
-         DEBUG_INPT   yLOG_exit    (__FUNCTION__);
+         DEBUG_YFILE   yLOG_note    ("file regex empty");
+         DEBUG_YFILE   yLOG_exit    (__FUNCTION__);
          return rce;
       }
       rc = yfile__name_regex ('f', myFILE.s_ext, x_dir, p, t);
       if (rc <= 0) {
-         DEBUG_INPT   yLOG_note    ("regex not found");
-         DEBUG_INPT   yLOG_exit    (__FUNCTION__);
+         DEBUG_YFILE   yLOG_note    ("regex not found");
+         DEBUG_YFILE   yLOG_exit    (__FUNCTION__);
          return rce;
       }
       if (rc >  1) {
-         DEBUG_INPT   yLOG_note    ("too many matches found");
-         DEBUG_INPT   yLOG_exit    (__FUNCTION__);
+         DEBUG_YFILE   yLOG_note    ("too many matches found");
+         DEBUG_YFILE   yLOG_exit    (__FUNCTION__);
          return rce;
       }
       rc = yfile__name_stripext (t);
@@ -478,8 +478,8 @@ yfile__name             (char a_type, char *a_name)
    else if (x_len > 0) {
       for (i = 0; i < x_len; ++i) {
          if (strchr (YSTR_FILES, p [i]) != NULL)   continue;
-         DEBUG_INPT   yLOG_note    ("bad character in file name");
-         DEBUG_INPT   yLOG_exit    (__FUNCTION__);
+         DEBUG_YFILE   yLOG_note    ("bad character in file name");
+         DEBUG_YFILE   yLOG_exit    (__FUNCTION__);
          return rce;
       }
       strlcpy (myFILE.f_name , p         , LEN_RECD);
@@ -490,11 +490,11 @@ yfile__name             (char a_type, char *a_name)
    }
    /*---(report out)---------------------*/
    sprintf (myFILE.f_title, "%s%s.%s", x_dir, myFILE.f_name, myFILE.s_ext);
-   DEBUG_INPT   yLOG_info    ("f_loc"     , myFILE.f_loc);
-   DEBUG_INPT   yLOG_info    ("f_name"    , myFILE.f_name);
-   DEBUG_INPT   yLOG_info    ("f_title"   , myFILE.f_title);
+   DEBUG_YFILE   yLOG_info    ("f_loc"     , myFILE.f_loc);
+   DEBUG_YFILE   yLOG_info    ("f_name"    , myFILE.f_name);
+   DEBUG_YFILE   yLOG_info    ("f_title"   , myFILE.f_title);
    /*---(complete)-----------------------*/
-   DEBUG_INPT   yLOG_exit    (__FUNCTION__);
+   DEBUG_YFILE   yLOG_exit    (__FUNCTION__);
    return 0;
 }
 
