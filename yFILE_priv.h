@@ -62,6 +62,7 @@
 #include    <yCMD.h>              /* heatherly vi-keys command processing     */
 #include    <ySRC.h>              /* heatherly vikeys source editing          */
 #include    <yMAP.h>              /* heatherly vi-keys location management    */
+#include    <yMACRO.h>            /* heatherly vi-keys macro processing       */
 /*---(custom other)----------------------*/
 #include    <yPARSE.h>            /* heatherly file reading and writing       */
 #include    <yREGEX.h>            /* heatherly regular expressions            */

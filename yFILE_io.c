@@ -22,7 +22,7 @@ yfile_handlers          (void)
    DEBUG_YFILE   yLOG_value   ("loc_mark"  , rc);
    /*> rc = yPARSE_handler_max (UMOD_VISUAL  , "visu_mark" , 7.2, "cTT---------", -1, yvikeys_visu__reader, yvikeys_visu__writer_all, "------------" , "a,beg,end", "map mode visual selections");   <*/
    DEBUG_YFILE   yLOG_value   ("visu_mark" , rc);
-   /*> rc = yPARSE_handler_max (SMOD_MACRO   , "macro"     , 7.3, "cO----------", -1, yMACRO_reader, yMACRO_writer, "------------" , "a,keys", "keyboard macros"           );   <*/
+   rc = yPARSE_handler_max (SMOD_MACRO   , "macro"     , 7.3, "cO----------", -1, yMACRO_reader, yMACRO_writer, "------------" , "a,keys", "keyboard macros"           );
    DEBUG_YFILE   yLOG_value   ("macro"     , rc);
    /*> rc = yPARSE_handler_max (MODE_COMMAND , "command"   , 7.4, "cO----------", -1, yvikeys_cmds_reader, yvikeys_cmds_writer, "------------" , "a,command-----------------", "command history"           );   <*/
    DEBUG_YFILE   yLOG_value   ("command"   , rc);
