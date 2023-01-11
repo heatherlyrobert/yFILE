@@ -36,8 +36,8 @@
 
 #define     P_VERMAJOR  "2.--, clean, improve, and expand"
 #define     P_VERMINOR  "2.0-, break away from yVIKEYS"
-#define     P_VERNUM    "2.0e"
-#define     P_VERTXT    "added terse option to dumps"
+#define     P_VERNUM    "2.0f"
+#define     P_VERTXT    "fully migrated to yVIHUB and compliant with unit tests"
 
 #define     P_PRIORITY  "direct, simple, brief, vigorous, and lucid (h.w. fowler)"
 #define     P_PRINCIPAL "[grow a set] and build your wings on the way down (r. bradbury)"
@@ -57,13 +57,11 @@
 #include    <yLOG.h>              /* heatherly program logging                */
 #include    <ySTR.h>              /* heatherly string processing              */
 /*---(custom vikeys)---------------------*/
-#include    <yKEYS.h>             /* heatherly vi-keys key handling           */
+#include    <yVIHUB.h>
 #include    <yMODE.h>             /* heatherly vi-keys mode tracking          */
-#include    <yCMD.h>              /* heatherly vi-keys command processing     */
-#include    <ySRC.h>              /* heatherly vikeys source editing          */
-#include    <yMAP.h>              /* heatherly vi-keys location management    */
-#include    <yMACRO.h>            /* heatherly vi-keys macro processing       */
+#include    <yKEYS.h>             /* heatherly vi-keys key handling           */
 /*---(custom other)----------------------*/
+#include    <ySORT.h>
 #include    <yPARSE.h>            /* heatherly file reading and writing       */
 #include    <yREGEX.h>            /* heatherly regular expressions            */
 /*---(done)------------------------------*/
@@ -149,12 +147,12 @@ char        yFILE_vernum            (char *a_ver);
 /*===[[ yFILE_name.c ]]=======================================================*/
 /*345678901-12345678901-12345678901-12345678901-12345678901-12345678901-123456*/
 /*---(regex)----------------*/
-char        yfile__name_prep        (char a_type, char *a_ext, char *a_base, char *a_entry, char *r_match, char *r_elen);
-char        yfile__name_regex       (char a_type, char *a_ext, char *a_base, char *a_entry, char *r_match);
+char        yfile_name__prep        (char a_type, char *a_ext, char *a_base, char *a_entry, char *r_match, char *r_elen);
+char        yfile_name__regex       (char a_type, char *a_ext, char *a_base, char *a_entry, char *r_match);
 /*---(ext)------------------*/
-char        yfile__name_stripext    (char *a_full);
+char        yfile_name__stripext    (char *a_full);
 /*---(path)-----------------*/
-char        yfile__name_path        (char *a_path);
+char        yfile_name__path        (char *a_path, char *a_depth);
 char        yFILE_loc               (char *a_path);
 
 

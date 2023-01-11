@@ -20,14 +20,12 @@ yfile__unit_quiet      (void)
    yPARSE_init  ('y', NULL, '-');
    yPARSE_delimiters  ("");
    yMODE_init (MODE_MAP);
-   yMODE_handler_setup ();
-   yMACRO_global_init ();
+   yMODE_init_after ();
+   yKEYS_unit_handlers ();
+   yKEYS_init  ();
+   yKEYS_init_after ();
    yFILE_init ();
-   yCMD_init  ();
-   yKEYS_init           ();
-   yMAP_init            ();
-   ySRC_init            ();
-   yMACRO_init          ();
+   yFILE_init_after ();
    return 0;
 }
 
@@ -43,21 +41,18 @@ yfile__unit_loud       (void)
    yURG_name  ("kitchen"      , YURG_ON);
    yURG_name  ("ystr"         , YURG_ON);
    yURG_name  ("yparse"       , YURG_ON);
-   yURG_name  ("keys"         , YURG_ON);
-   yURG_name  ("file"         , YURG_ON);
-   yURG_name  ("cmds"         , YURG_ON);
-   yURG_name  ("mode"         , YURG_ON);
-   yURG_name  ("edit"         , YURG_ON);
+   yURG_name  ("yvihub"       , YURG_ON);
+   yURG_name  ("ymode"        , YURG_ON);
+   yURG_name  ("ykeys"        , YURG_ON);
+   yURG_name  ("yfile"        , YURG_ON);
    DEBUG_YFILE   yLOG_info     ("yFILE"      , yFILE_version   ());
    yMODE_init (MODE_MAP);
-   yMODE_handler_setup ();
-   yMACRO_global_init ();
+   yMODE_init_after ();
+   yKEYS_unit_handlers ();
+   yKEYS_init  ();
+   yKEYS_init_after ();
    yFILE_init ();
-   yCMD_init  ();
-   yKEYS_init           ();
-   yMAP_init            ();
-   ySRC_init            ();
-   yMACRO_init          ();
+   yFILE_init_after ();
    return 0;
 }
 

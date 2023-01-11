@@ -55,8 +55,11 @@ yfile_dump_wrap         (void)
       DEBUG_YFILE   yLOG_sint    (s_ndump);
       x_next  = x_next->next;
       free (s_hdump->name);
+      s_hdump->name  = s_nada;
       if (s_hdump->terse != s_nada)  free (s_hdump->terse);
+      s_hdump->terse = s_nada;
       if (s_hdump->desc  != s_nada)  free (s_hdump->desc);
+      s_hdump->desc  = s_nada;
       free (s_hdump);
       s_hdump = x_next;
       --s_ndump;
@@ -246,22 +249,23 @@ yFILE_dump              (char *a_name)
       return rce;
    }
    /*---(header)-------------------------*/
-   fprintf (f, "# host          %s (%d)\n", myFILE.s_fullname, getpid ());
-   fprintf (f, "# source        %s\n", myFILE.f_title);
+   fprintf (f, "#!/usr/bin/vi\n");
+   fprintf (f, "##   host          %s (%d)\n", myFILE.s_fullname, getpid ());
+   fprintf (f, "##   source        %s\n", myFILE.f_title);
    /*---(defense)------------------------*/
    DEBUG_YFILE   yLOG_point   ("a_name"    , a_name);
    --rce;  if (a_name == NULL || a_name [0] == '\0') {
-      fprintf (f, "# generated     :dump %s¦\n", "(NULL)");
-      fprintf (f, "\n");
-      fprintf (f, "illegal dump name\n");
-      fprintf (f, "\n");
-      fprintf (f, "# end-of-file.  done, finito, completare, whimper [Ï´···\n");
+      fprintf (f, "##   generated     :dump %s¦\n", "(NULL)");
+      fprintf (f, "##\n");
+      fprintf (f, "## illegal dump name\n");
+      fprintf (f, "##\n");
+      fprintf (f, "## end-of-file.  done, finito, completare, whimper [Ï´···\n");
       fclose  (f);
       DEBUG_YFILE   yLOG_exitr   (__FUNCTION__, rce);
       return rce;
    }
-   fprintf (f, "# generated     :dump %s¦\n", a_name);
-   fprintf (f, "\n");
+   fprintf (f, "##   generated     :dump %s¦\n", a_name);
+   fprintf (f, "##\n");
    /*---(find)---------------------------*/
    x_curr = s_hdump;
    while (x_curr != NULL) {
@@ -272,9 +276,9 @@ yFILE_dump              (char *a_name)
    }
    DEBUG_YFILE   yLOG_point   ("x_curr"    , x_curr);
    --rce;  if (x_curr == NULL) {
-      fprintf (f, "unknown/non-existant dump name\n");
-      fprintf (f, "\n");
-      fprintf (f, "# end-of-file.  done, finito, completare, whimper [Ï´···\n");
+      fprintf (f, "## unknown/non-existant dump name\n");
+      fprintf (f, "##\n");
+      fprintf (f, "## end-of-file.  done, finito, completare, whimper [Ï´···\n");
       fclose  (f);
       DEBUG_YFILE   yLOG_exitr   (__FUNCTION__, rce);
       return rce;
@@ -284,8 +288,8 @@ yFILE_dump              (char *a_name)
    rc = x_curr->provider (f);
    DEBUG_YFILE   yLOG_value   ("rc"        , rc);
    /*---(close dump file)----------------*/
-   fprintf (f, "\n");
-   fprintf (f, "# end-of-file.  done, finito, completare, whimper [Ï´···\n");
+   fprintf (f, "##\n");
+   fprintf (f, "## end-of-file.  done, finito, completare, whimper [Ï´···\n");
    fclose  (f);
    /*---(complete)-----------------------*/
    DEBUG_YFILE   yLOG_exit    (__FUNCTION__);

@@ -45,6 +45,7 @@ yFILE_init              (void)
 {
    /*---(locals)-----------+-----+-----+-*/
    char        rce         =  -10;
+   char        t           [LEN_PATH]  = "";
    /*---(header)-------------------------*/
    DEBUG_YFILE   yLOG_enter   (__FUNCTION__);
    /*---(defense)------------------------*/
@@ -53,6 +54,8 @@ yFILE_init              (void)
       DEBUG_YFILE   yLOG_exitr   (__FUNCTION__, rce);
       return rce;
    }
+   /*---(hook to yVIHUB)-----------------*/
+   yVIHUB_from_yFILE (yFILE_dump_add);
    /*---(get parse moving)---------------*/
    yPARSE_init  ('y', NULL, '-');
    yPARSE_delimiters  ("");
@@ -72,8 +75,9 @@ yFILE_init              (void)
    strlcpy (myFILE.s_namesake, ""      , LEN_HUND );
    strlcpy (myFILE.s_ext     , ""      , LEN_LABEL);
    strlcpy (myFILE.s_filetype, ""      , LEN_DESC );
-   sprintf (myFILE.f_loc     , "%s/", getcwd (NULL, 0));
-   if (strcmp (myFILE.f_loc, "//") == 0)  strlcpy (myFILE.f_loc, "/", LEN_LABEL);
+   getcwd (myFILE.f_loc, LEN_RECD);
+   strlcat (myFILE.f_loc, "/", LEN_RECD);
+   if (strcmp (myFILE.f_loc, "//") == 0)  strlcpy (myFILE.f_loc, "/", LEN_RECD);
    /*---(functions)----------------------*/
    DEBUG_YFILE   yLOG_note    ("default function callbacks data");
    myFILE.e_handlers = NULL;
@@ -81,6 +85,17 @@ yFILE_init              (void)
    myFILE.e_finisher = NULL;
    /*---(update status)------------------*/
    yMODE_init_set   (FMOD_FILE, NULL, NULL);
+   /*---(complete)-----------------------*/
+   DEBUG_YFILE   yLOG_exit    (__FUNCTION__);
+   return 0;
+}
+
+char
+yFILE_init_after        (void)
+{
+   /*---(header)-------------------------*/
+   DEBUG_YFILE   yLOG_enter   (__FUNCTION__);
+   yMODE_after_set  (FMOD_FILE);
    /*---(complete)-----------------------*/
    DEBUG_YFILE   yLOG_exit    (__FUNCTION__);
    return 0;

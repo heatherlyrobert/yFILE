@@ -18,16 +18,16 @@ yfile_handlers          (void)
    /*---(header)-------------------------*/
    DEBUG_YFILE   yLOG_enter   (__FUNCTION__);
    /*---(handlers)-----------------------*/
-   /*> rc = yPARSE_handler_max (UMOD_MARK    , "loc_mark"  , 7.1, "cT----------", -1, yvikeys_mark_reader, yvikeys_mark_writer_all, "------------" , "a,label", "map mode location marks");   <*/
-   DEBUG_YFILE   yLOG_value   ("loc_mark"  , rc);
+   /*> rc = yPARSE_handler_max (UMOD_MARK    , "loc_mark"  , 7.1, "cT----------", -1, yMARK_mark_reader, yMARK_mark_writer_all, "------------" , "a,label", "map mode location marks");   <*/
+   /*> DEBUG_YFILE   yLOG_value   ("loc_mark"  , rc);                                 <*/
    /*> rc = yPARSE_handler_max (UMOD_VISUAL  , "visu_mark" , 7.2, "cTT---------", -1, yvikeys_visu__reader, yvikeys_visu__writer_all, "------------" , "a,beg,end", "map mode visual selections");   <*/
-   DEBUG_YFILE   yLOG_value   ("visu_mark" , rc);
-   rc = yPARSE_handler_max (SMOD_MACRO   , "macro"     , 7.3, "cO----------", -1, yMACRO_reader, yMACRO_writer, "------------" , "a,keys", "keyboard macros"           );
-   DEBUG_YFILE   yLOG_value   ("macro"     , rc);
+   /*> DEBUG_YFILE   yLOG_value   ("visu_mark" , rc);                                 <*/
+   /*> rc = yPARSE_handler_max (SMOD_MACRO   , "macro"     , 7.3, "cO----------", -1, yMACRO_reader, yMACRO_writer, "------------" , "a,keys", "keyboard macros"           );   <*/
+   /*> DEBUG_YFILE   yLOG_value   ("macro"     , rc);                                 <*/
    /*> rc = yPARSE_handler_max (MODE_COMMAND , "command"   , 7.4, "cO----------", -1, yvikeys_cmds_reader, yvikeys_cmds_writer, "------------" , "a,command-----------------", "command history"           );   <*/
-   DEBUG_YFILE   yLOG_value   ("command"   , rc);
+   /*> DEBUG_YFILE   yLOG_value   ("command"   , rc);                                 <*/
    /*> rc = yPARSE_handler_max (MODE_SEARCH  , "search"    , 7.5, "cO----------", -1, yvikeys_srch_reader, yvikeys_srch_writer, "------------" , "a,search"                  , "search history"            );   <*/
-   DEBUG_YFILE   yLOG_value   ("search"    , rc);
+   /*> DEBUG_YFILE   yLOG_value   ("search"    , rc);                                 <*/
    /*---(complete)-----------------------*/
    DEBUG_YFILE   yLOG_exit    (__FUNCTION__);
    return 0;
@@ -78,7 +78,7 @@ yFILE_reader            (void)
    int         x_pass      =    1;
    char        x_max       =    1;
    /*---(stage check)-----------------*/
-   yURG_stage_check (YURG_STAGE_INPT);
+   /*> yURG_stage_check (YURG_STAGE_INPT);                                            <*/
    /*---(header)-------------------------*/
    DEBUG_YFILE  yLOG_enter   (__FUNCTION__);
    /*---(defense)------------------------*/
@@ -166,7 +166,7 @@ yFILE_writer            (void)
    int         i           =    0;
    int         n           =   -1;
    /*---(stage check)-----------------*/
-   yURG_stage_check (YURG_STAGE_OUTP);
+   /*> yURG_stage_check (YURG_STAGE_OUTP);                                            <*/
    /*---(header)-------------------------*/
    DEBUG_YFILE  yLOG_enter   (__FUNCTION__);
    /*---(defense)------------------------*/

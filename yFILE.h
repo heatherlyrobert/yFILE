@@ -11,6 +11,7 @@
 char*       yFILE_version           (void);
 /*---(program)--------------*/
 char        yFILE_init              (void);
+char        yFILE_init_after        (void);
 char        yFILE_whoami            (char *a_full, char *a_vernum, char *a_vertxt, char *a_namesake, char *a_ext, char *a_filetype, void *a_handlers, void *a_prepper, void *a_finisher);
 char        yFILE_wrap              (void);
 /*---(done)-----------------*/
