@@ -322,7 +322,7 @@ yFILE_vertxt             (char *a_txt)
    DEBUG_YFILE   yLOG_snote   (a_txt);
    /*---(save)---------------------------*/
    ystrlcpy  (myFILE.f_vertxt, a_txt,     LEN_HUND);
-   yystrltrim (myFILE.f_vertxt, ySTR_BOTH, LEN_HUND);
+   ystrltrim (myFILE.f_vertxt, ySTR_BOTH, LEN_HUND);
    /*---(complete)-----------------------*/
    DEBUG_YFILE   yLOG_sexit   (__FUNCTION__);
    return 0;
