@@ -214,7 +214,7 @@ yFILE_writeas           (char *a_name)
 {
    char        rc          =    0;
    char        x_name      [LEN_RECD]  = "";
-   strlcpy (x_name, myFILE.f_name, LEN_RECD);
+   ystrlcpy (x_name, myFILE.f_name, LEN_RECD);
    if (rc >= 0)  rc = yFILE_name   (a_name);
    if (rc >= 0)  rc = yFILE_writer ();
    yFILE_name(x_name);

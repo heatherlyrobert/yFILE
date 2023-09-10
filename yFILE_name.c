@@ -36,7 +36,7 @@ yfile_name__prep        (char a_type, char *a_ext, char *a_path, char *a_entry, 
    DEBUG_YFILE   yLOG_senter  (__FUNCTION__);
    /*---(default)------------------------*/
    DEBUG_YFILE   yLOG_spoint  (r_match);
-   if (r_match != NULL)  strlcpy (r_match, "", LEN_RECD);
+   if (r_match != NULL)  ystrlcpy (r_match, "", LEN_RECD);
    DEBUG_YFILE   yLOG_spoint  (r_match);
    if (r_elen  != NULL)  *r_elen = 0;
    s_dir = NULL;
@@ -135,7 +135,7 @@ yfile_name__open        (char a_path [LEN_PATH])
    }
    /*---(save off)-----------------------*/
    DEBUG_YFILE   yLOG_note    ("success, location open");
-   strlcpy (s_name, a_path, LEN_PATH);
+   ystrlcpy (s_name, a_path, LEN_PATH);
    /*---(complete)-----------------------*/
    DEBUG_YFILE   yLOG_exit    (__FUNCTION__);
    return 0;
@@ -166,7 +166,7 @@ yfile_name__close       (void)
    /*---(ground)-------------------------*/
    DEBUG_YFILE   yLOG_note    ("success, location closed");
    s_dir = NULL;
-   strlcpy (s_name, ""    , LEN_PATH);
+   ystrlcpy (s_name, ""    , LEN_PATH);
    /*---(complete)-----------------------*/
    DEBUG_YFILE   yLOG_exit    (__FUNCTION__);
    return 0;
@@ -275,17 +275,17 @@ yfile_name__hook        (tENTRY *a_entry)
       return rce;
    }
    /*---(populate)-----------------------*/
-   strlcpy (x_name, a_entry->d_name, LEN_PATH);
-   strlcpy (x_keep->name, x_name, LEN_PATH);
+   ystrlcpy (x_name, a_entry->d_name, LEN_PATH);
+   ystrlcpy (x_keep->name, x_name, LEN_PATH);
    /*---(case insensistive sort)---------*/
    DEBUG_YFILE   yLOG_info    ("x_name"    , x_name);
-   strllower (x_name, LEN_PATH);
+   ystrllower (x_name, LEN_PATH);
    DEBUG_YFILE   yLOG_info    ("lower"     , x_name);
    /*---(hidden files mixed in)----------*/
    p = x_name;
    if (a_entry->d_name [0] == '.') ++p;
    DEBUG_YFILE   yLOG_info    ("p"         , p);
-   strlcpy (x_keep->sort, p, LEN_PATH);
+   ystrlcpy (x_keep->sort, p, LEN_PATH);
    /*---(before)-------------------------*/
    c  = ySORT_count   (B_ENTRY);
    rc = ySORT_by_name (B_ENTRY, x_keep->sort, NULL);
@@ -417,7 +417,7 @@ yfile_name__regex       (char a_type, char *a_ext, char *a_path, char *a_entry, 
          DEBUG_YFILE   yLOG_note    ("found a match");
          ++x_matches;
          if (x_matches == 1 && r_match != NULL) {
-            strlcpy (r_match, x_keep->name, LEN_RECD);
+            ystrlcpy (r_match, x_keep->name, LEN_RECD);
          }
       }
       /*---(next)------------------------*/
@@ -459,7 +459,7 @@ yfile_name__stripext    (char *a_full)
    DEBUG_YFILE   yLOG_senter  (__FUNCTION__);
    /*---(check extension)----------------*/
    DEBUG_YFILE   yLOG_snote   (myFILE.s_ext);
-   x_elen = strllen (myFILE.s_ext, LEN_LABEL);
+   x_elen = ystrllen (myFILE.s_ext, LEN_LABEL);
    DEBUG_YFILE   yLOG_sint    (x_elen);
    if (x_elen <= 0) {
       DEBUG_YFILE   yLOG_sexit   (__FUNCTION__);
@@ -472,7 +472,7 @@ yfile_name__stripext    (char *a_full)
       return rce;
    }
    /*---(check lengths)------------------*/
-   x_len    = strllen (a_full, LEN_RECD);
+   x_len    = ystrllen (a_full, LEN_RECD);
    DEBUG_YFILE   yLOG_sint    (x_len);
    --rce;  if (x_len < 2) {
       DEBUG_YFILE   yLOG_sexitr  (__FUNCTION__, rce);
@@ -532,17 +532,17 @@ yfile_name__path        (char *a_path, char *a_depth)
       return rce;
    }
    DEBUG_YFILE   yLOG_info    ("a_path"    , a_path);
-   strlcpy (x_work, a_path, LEN_RECD);
-   strlcpy (a_path, "", LEN_RECD);
+   ystrlcpy (x_work, a_path, LEN_RECD);
+   ystrlcpy (a_path, "", LEN_RECD);
    if (a_depth != NULL)  *a_depth = -1;
    /*---(absolute marker)----------------*/
    getcwd (x_curr, LEN_RECD);
    if (strncmp (x_work, "./", 2) == 0) {
-      strlcpy (x_final, x_curr, LEN_RECD);
-      strlcat (x_final, "/"   , LEN_RECD);
+      ystrlcpy (x_final, x_curr, LEN_RECD);
+      ystrlcat (x_final, "/"   , LEN_RECD);
       x_work [0] = '/';
-   } else if (x_work [0] == '/')  strlcpy (x_final, "/", LEN_RECD);
-   else                           strlcpy (x_final, myFILE.f_loc, LEN_RECD);
+   } else if (x_work [0] == '/')  ystrlcpy (x_final, "/", LEN_RECD);
+   else                           ystrlcpy (x_final, myFILE.f_loc, LEN_RECD);
    DEBUG_YFILE   yLOG_info    ("x_final"   , x_final);
    x_len = strlen (x_final);
    /*---(loop)---------------------------*/
@@ -566,8 +566,8 @@ yfile_name__path        (char *a_path, char *a_depth)
             return rce;
          }
          if (rc > 1)  x_matches = 2;
-         strlcat (x_final, t  , LEN_RECD);
-         strlcat (x_final, "/", LEN_RECD);
+         ystrlcat (x_final, t  , LEN_RECD);
+         ystrlcat (x_final, "/", LEN_RECD);
          DEBUG_YFILE   yLOG_info    ("x_final"   , x_final);
       }
       /*---(next)------------------------*/
@@ -579,7 +579,7 @@ yfile_name__path        (char *a_path, char *a_depth)
    }
    /*---(save)---------------------------*/
    DEBUG_YFILE   yLOG_value   ("levels"    , c);
-   strlcpy (a_path, x_final, LEN_RECD);
+   ystrlcpy (a_path, x_final, LEN_RECD);
    if (a_depth != NULL)  *a_depth = c;
    /*---(complete)-----------------------*/
    DEBUG_YFILE   yLOG_exit    (__FUNCTION__);
@@ -611,7 +611,7 @@ yFILE_loc               (char *a_path)
    }
    DEBUG_YFILE   yLOG_info    ("a_path"    , a_path);
    /*---(save)---------------------------*/
-   strlcpy (t, a_path, LEN_RECD);
+   ystrlcpy (t, a_path, LEN_RECD);
    rc = yfile_name__path (t, NULL);
    DEBUG_YFILE   yLOG_value   ("path"      , rc);
    --rce;  if (rc != 1) {
@@ -619,7 +619,7 @@ yFILE_loc               (char *a_path)
       return rce;
    }
    /*---(save)---------------------------*/
-   strlcpy (myFILE.f_loc  , t, LEN_RECD);
+   ystrlcpy (myFILE.f_loc  , t, LEN_RECD);
    DEBUG_YFILE   yLOG_info    ("f_loc"     , myFILE.f_loc);
    sprintf (myFILE.f_title, "%s%s.%s"   , myFILE.f_loc, myFILE.f_name, myFILE.s_ext);
    /*---(complete)-----------------------*/
@@ -694,13 +694,13 @@ yfile_name              (char a_type, char *a_name)
    DEBUG_YFILE   yLOG_point   ("a_name"    , a_name);
    if (a_name == NULL || a_name [0] == 0) {
       DEBUG_YFILE   yLOG_note    ("a_name was null, using defaults");
-      strlcpy (myFILE.f_name , YFILE_BLANK, LEN_RECD);
+      ystrlcpy (myFILE.f_name , YFILE_BLANK, LEN_RECD);
       sprintf (myFILE.f_title, "%s%s.%s"   , myFILE.f_loc, myFILE.f_name, myFILE.s_ext);
       DEBUG_YFILE   yLOG_exit    (__FUNCTION__);
       return 0;
    }
    /*---(relative vs absolute)-----------*/
-   if (a_name [0] == '/')  strlcpy  (x_work, a_name, LEN_RECD);
+   if (a_name [0] == '/')  ystrlcpy  (x_work, a_name, LEN_RECD);
    else                    snprintf (x_work, LEN_RECD, "%s%s", myFILE.f_loc, a_name);
    DEBUG_YFILE   yLOG_info    ("x_work"    , x_work);
    /*---(strip extensions)---------------*/
@@ -724,7 +724,7 @@ yfile_name              (char a_type, char *a_name)
    }
    /*---(check for bad characters)-------*/
    p++;
-   x_len = strllen (p, LEN_RECD);
+   x_len = ystrllen (p, LEN_RECD);
    DEBUG_YFILE   yLOG_value   ("x_len"     , x_len);
    /*---(check for regex)----------------*/
    --rce;  if (a_type == 'r' && x_len > 0) {
@@ -745,7 +745,7 @@ yfile_name              (char a_type, char *a_name)
          return rce;
       }
       rc = yfile_name__stripext (t);
-      strlcpy (myFILE.f_name , t, LEN_RECD);
+      ystrlcpy (myFILE.f_name , t, LEN_RECD);
    }
    /*---(check for fixed name)-----------*/
    else if (x_len > 0) {
@@ -755,11 +755,11 @@ yfile_name              (char a_type, char *a_name)
          DEBUG_YFILE   yLOG_exit    (__FUNCTION__);
          return rce;
       }
-      strlcpy (myFILE.f_name , p         , LEN_RECD);
+      ystrlcpy (myFILE.f_name , p         , LEN_RECD);
    }
    /*---(check for empty, again)---------*/
    else {
-      strlcpy (myFILE.f_name , YFILE_BLANK, LEN_RECD);
+      ystrlcpy (myFILE.f_name , YFILE_BLANK, LEN_RECD);
    }
    /*---(report out)---------------------*/
    sprintf (myFILE.f_title, "%s%s.%s", x_dir, myFILE.f_name, myFILE.s_ext);

@@ -52,13 +52,13 @@ yfile_vers_controlled   (char *a_yes)
       return rce;
    }
    /*---(prepare)------------------------*/
-   strlcpy (myFILE.f_vertxt, "", LEN_HUND);
+   ystrlcpy (myFILE.f_vertxt, "", LEN_HUND);
    /*---(turn on)------------------------*/
    if (x_opt == 'y') {
       if (myFILE.f_control == '-') {
          DEBUG_YFILE   yLOG_snote   ("turn on");
          myFILE.f_control = 'y';
-         strlcpy (myFILE.f_vernum, "0.0a", LEN_LABEL);
+         ystrlcpy (myFILE.f_vernum, "0.0a", LEN_LABEL);
       } else {
          DEBUG_YFILE   yLOG_snote   ("already on");
       }
@@ -68,7 +68,7 @@ yfile_vers_controlled   (char *a_yes)
       if (myFILE.f_control == 'y') {
          DEBUG_YFILE   yLOG_snote   ("turn off");
          myFILE.f_control = '-';
-         strlcpy (myFILE.f_vernum, "-´--", LEN_LABEL);
+         ystrlcpy (myFILE.f_vernum, "-´--", LEN_LABEL);
       } else {
          DEBUG_YFILE   yLOG_snote   ("already off");
       }
@@ -114,7 +114,7 @@ yfile_vers_bump         (char a_type)
       return rce;
    }
    /*---(prepare)------------------------*/
-   strlcpy (myFILE.f_vertxt, ""   , LEN_HUND);
+   ystrlcpy (myFILE.f_vertxt, ""   , LEN_HUND);
    /*---(tiny)---------------------------*/
    --rce;  if (a_type == 'i') {
       if (myFILE.f_vernum [3] <  'z') {
@@ -224,7 +224,7 @@ yFILE_vernum             (char *a_ver)
       return rce;
    }
    /*---(prepare)------------------------*/
-   strlcpy  (x_work, a_ver, LEN_LABEL);
+   ystrlcpy  (x_work, a_ver, LEN_LABEL);
    /*---(test chars)---------------------*/
    --rce;  if (strchr (YSTR_LOWER, x_work [3]) == 0) {
       DEBUG_YFILE   yLOG_snote   ("inc is not a-z");
@@ -279,8 +279,8 @@ yFILE_vernum             (char *a_ver)
       DEBUG_YFILE   yLOG_snote   ("major increased, all is fair");
    }
    /*---(finalize)-----------------------*/
-   strlcpy (myFILE.f_vernum, x_work, LEN_LABEL);
-   strlcpy (myFILE.f_vertxt, "", LEN_HUND);
+   ystrlcpy (myFILE.f_vernum, x_work, LEN_LABEL);
+   ystrlcpy (myFILE.f_vertxt, "", LEN_HUND);
    /*---(complete)-----------------------*/
    DEBUG_YFILE   yLOG_sexit   (__FUNCTION__);
    return 0;
@@ -312,7 +312,7 @@ yFILE_vertxt             (char *a_txt)
       return rce;
    }
    /*---(prepare)------------------------*/
-   strlcpy (myFILE.f_vertxt, "", LEN_HUND);
+   ystrlcpy (myFILE.f_vertxt, "", LEN_HUND);
    /*---(defense)------------------------*/
    DEBUG_YFILE   yLOG_spoint  (a_txt);
    --rce;  if (a_txt == NULL || a_txt [0] == '\0') {
@@ -321,8 +321,8 @@ yFILE_vertxt             (char *a_txt)
    }
    DEBUG_YFILE   yLOG_snote   (a_txt);
    /*---(save)---------------------------*/
-   strlcpy  (myFILE.f_vertxt, a_txt,     LEN_HUND);
-   strltrim (myFILE.f_vertxt, ySTR_BOTH, LEN_HUND);
+   ystrlcpy  (myFILE.f_vertxt, a_txt,     LEN_HUND);
+   yystrltrim (myFILE.f_vertxt, ySTR_BOTH, LEN_HUND);
    /*---(complete)-----------------------*/
    DEBUG_YFILE   yLOG_sexit   (__FUNCTION__);
    return 0;

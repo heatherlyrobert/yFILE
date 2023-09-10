@@ -64,20 +64,20 @@ yFILE_init              (void)
    /*---(versioning)---------------------*/
    DEBUG_YFILE   yLOG_note    ("default versioning data");
    myFILE.f_control = '-';
-   strlcpy (myFILE.f_vernum  , "-´--"  , LEN_LABEL);
-   strlcpy (myFILE.f_vertxt  , ""      , LEN_HUND );
+   ystrlcpy (myFILE.f_vernum  , "-´--"  , LEN_LABEL);
+   ystrlcpy (myFILE.f_vertxt  , ""      , LEN_HUND );
    /*---(source)-------------------------*/
    DEBUG_YFILE   yLOG_note    ("default source program data");
-   strlcpy (myFILE.s_prog    , ""      , LEN_LABEL);
-   strlcpy (myFILE.s_fullname, ""      , LEN_DESC );
-   strlcpy (myFILE.s_vernum  , "-´--"  , LEN_LABEL);
-   strlcpy (myFILE.s_vertxt  , ""      , LEN_DESC );
-   strlcpy (myFILE.s_namesake, ""      , LEN_HUND );
-   strlcpy (myFILE.s_ext     , ""      , LEN_LABEL);
-   strlcpy (myFILE.s_filetype, ""      , LEN_DESC );
+   ystrlcpy (myFILE.s_prog    , ""      , LEN_LABEL);
+   ystrlcpy (myFILE.s_fullname, ""      , LEN_DESC );
+   ystrlcpy (myFILE.s_vernum  , "-´--"  , LEN_LABEL);
+   ystrlcpy (myFILE.s_vertxt  , ""      , LEN_DESC );
+   ystrlcpy (myFILE.s_namesake, ""      , LEN_HUND );
+   ystrlcpy (myFILE.s_ext     , ""      , LEN_LABEL);
+   ystrlcpy (myFILE.s_filetype, ""      , LEN_DESC );
    getcwd (myFILE.f_loc, LEN_RECD);
-   strlcat (myFILE.f_loc, "/", LEN_RECD);
-   if (strcmp (myFILE.f_loc, "//") == 0)  strlcpy (myFILE.f_loc, "/", LEN_RECD);
+   ystrlcat (myFILE.f_loc, "/", LEN_RECD);
+   if (strcmp (myFILE.f_loc, "//") == 0)  ystrlcpy (myFILE.f_loc, "/", LEN_RECD);
    /*---(functions)----------------------*/
    DEBUG_YFILE   yLOG_note    ("default function callbacks data");
    myFILE.e_handlers = NULL;
@@ -123,29 +123,29 @@ yFILE_whoami            (char *a_full, char *a_vernum, char *a_vertxt, char *a_n
       DEBUG_YFILE   yLOG_exitr   (__FUNCTION__, rce);
       return rce;
    }
-   strlcpy (myFILE.s_fullname, a_full, LEN_DESC);
+   ystrlcpy (myFILE.s_fullname, a_full, LEN_DESC);
    DEBUG_YFILE   yLOG_info    ("s_fullname", myFILE.s_fullname);
    /*---(program name)-------------------*/
    p = strrchr (a_full, '/');
-   if (p != NULL)   strlcpy (myFILE.s_prog, p + 1 , LEN_LABEL);
-   else             strlcpy (myFILE.s_prog, a_full, LEN_LABEL);
+   if (p != NULL)   ystrlcpy (myFILE.s_prog, p + 1 , LEN_LABEL);
+   else             ystrlcpy (myFILE.s_prog, a_full, LEN_LABEL);
    DEBUG_YFILE   yLOG_info    ("s_prog"    , myFILE.s_prog);
    /*---(calling program version)--------*/
    DEBUG_YFILE   yLOG_point   ("a_vernum"  , a_vernum);
    --rce;  if (a_vernum != NULL) {
-      strlcpy (myFILE.s_vernum, a_vernum, LEN_LABEL);
+      ystrlcpy (myFILE.s_vernum, a_vernum, LEN_LABEL);
       DEBUG_YFILE   yLOG_info    ("s_vernum"  , myFILE.s_vernum);
    }
    /*---(calling program ver desc)-------*/
    DEBUG_YFILE   yLOG_point   ("a_vertxt"  , a_vertxt);
    --rce;  if (a_vertxt != NULL) {
-      strlcpy (myFILE.s_vertxt, a_vertxt, LEN_DESC);
+      ystrlcpy (myFILE.s_vertxt, a_vertxt, LEN_DESC);
       DEBUG_YFILE   yLOG_info    ("s_vertxt"  , myFILE.s_vertxt);
    }
    /*---(calling one-line desc)----------*/
    DEBUG_YFILE   yLOG_point   ("a_namesake" , a_namesake);
    --rce;  if (a_namesake != NULL) {
-      strlcpy (myFILE.s_namesake, a_namesake, LEN_HUND);
+      ystrlcpy (myFILE.s_namesake, a_namesake, LEN_HUND);
       DEBUG_YFILE   yLOG_info    ("s_namesake", myFILE.s_namesake);
    }
    /*---(default extension)--------------*/
@@ -155,12 +155,12 @@ yFILE_whoami            (char *a_full, char *a_vernum, char *a_vertxt, char *a_n
       DEBUG_YFILE   yLOG_exitr   (__FUNCTION__, rce);
       return rce;
    }
-   strlcpy (myFILE.s_ext, a_ext, LEN_LABEL);
+   ystrlcpy (myFILE.s_ext, a_ext, LEN_LABEL);
    DEBUG_YFILE   yLOG_info    ("s_ext"     , myFILE.s_ext);
    /*---(calling content)----------------*/
    DEBUG_YFILE   yLOG_point   ("a_filetype", a_filetype);
    --rce;  if (a_filetype != NULL) {
-      strlcpy (myFILE.s_filetype, a_filetype, LEN_DESC);
+      ystrlcpy (myFILE.s_filetype, a_filetype, LEN_DESC);
       DEBUG_YFILE   yLOG_info    ("s_filetype", myFILE.s_filetype);
    }
    /*---(handlers)-----------------------*/
