@@ -57,8 +57,7 @@ yFILE_init              (void)
    /*---(hook to yVIHUB)-----------------*/
    yVIHUB_from_yFILE (yFILE_dump_add);
    /*---(get parse moving)---------------*/
-   yPARSE_init  ('y', NULL, '-');
-   yPARSE_delimiters  ("");
+   yPARSE_config  (YPARSE_AUTO, NULL, YPARSE_ONETIME, YPARSE_FIELD, YPARSE_FILL);
    /*---(basic initializations)----------*/
    yfile_dump_init  ();
    /*---(versioning)---------------------*/

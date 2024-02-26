@@ -17,8 +17,7 @@ yfile__unit_quiet      (void)
 {
    int         x_narg       = 1;
    char       *x_args [20]  = {"yFILE_unit" };
-   yPARSE_init  ('y', NULL, '-');
-   yPARSE_delimiters  ("");
+   yPARSE_config  (YPARSE_AUTO, NULL, YPARSE_ONETIME, YPARSE_FIELD, YPARSE_FILL);
    yMODE_init (MODE_MAP);
    yMODE_init_after ();
    yKEYS_unit_handlers ();
@@ -34,8 +33,7 @@ yfile__unit_loud       (void)
 {
    int         x_narg       = 1;
    char       *x_args [20]  = {"yFILE_unit" };
-   yPARSE_init  ('y', NULL, '-');
-   yPARSE_delimiters  ("");
+   yPARSE_config  (YPARSE_AUTO, NULL, YPARSE_ONETIME, YPARSE_FIELD, YPARSE_FILL);
    yURG_logger   (x_narg, x_args);
    yURG_urgs     (x_narg, x_args);
    yURG_by_name  ("kitchen"      , YURG_ON);

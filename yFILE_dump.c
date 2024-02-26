@@ -242,7 +242,7 @@ yFILE_dump              (char *a_name)
    /*---(header)-------------------------*/
    DEBUG_YFILE   yLOG_enter   (__FUNCTION__);
    /*---(clear file)---------------------*/
-   f = fopen (YFILE_CLIP, "w");
+   f = fopen (YSTR_CLIP, "w");
    DEBUG_YFILE   yLOG_point   ("f"         , f);
    if (f == NULL) {
       DEBUG_YFILE   yLOG_exitr   (__FUNCTION__, rce);
