@@ -36,8 +36,8 @@
 
 #define     P_VERMAJOR  "2.--, clean, improve, and expand"
 #define     P_VERMINOR  "2.0-, break away from yVIKEYS"
-#define     P_VERNUM    "2.0j"
-#define     P_VERTXT    "minor changes for library changes"
+#define     P_VERNUM    "2.0k"
+#define     P_VERTXT    "update for new DEBUG_ macro calls"
 
 #define     P_PRIORITY  "direct, simple, brief, vigorous, and lucid (h.w. fowler)"
 #define     P_PRINCIPAL "[grow a set] and build your wings on the way down (r. bradbury)"
